@@ -1,0 +1,22 @@
+version: '3'
+services:
+  server:
+    build: ./server
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+      - ./server/dist:/usr/src/app/dist
+      
+  client:
+    build: ./client
+    ports:
+      - "8080:80"
+    depends_on:
+      - server
+
+volumes:
+  node_modules:
